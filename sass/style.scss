@@ -2,11 +2,11 @@
 
 /* Variables */
 
-$color-light: #fff;
-$color-dark: #444;
+$color-light: #eea47fff;
+$color-dark: #00539cff;
 
-$font-logo: "Sacramento", cursive;
-$font-header: "Oswald", sans-serif;
+$font-logo: "Raleway Dots", cursive;
+$font-header: "Playfair Display", Serif;
 $font-text: "Source Sans Pro", sans-serif;
 
 /* Global */
@@ -63,7 +63,7 @@ body {
   background: $color-light;
   margin-right: 10px;
   padding: 40px;
-  border: 1px solid $color-dark;
+  border: 1px dashed $color-dark;
   border-radius: 5px;
 }
 
@@ -71,10 +71,11 @@ body {
 
 .logo {
   font-family: $font-logo;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 104px;
   line-height: 1;
   text-align: center;
+  font-style: italic;
 }
 
 /* Lists */
@@ -83,31 +84,75 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
+
   .active {
     font-weight: bold;
+    text-decoration: underline dotted;
   }
 }
 
 .list-horizontal {
   li {
     display: inline-block;
+    text-decoration: underline dotted;
   }
 }
 
+.titles {
+  a {
+    text-decoration: none;
+    &:hover {
+      color: $color-dark;
+    }
+  }
+}
+
+.tags {
+  text-decoration: underline dotted;
+  a:hover {
+    color: $color-dark;
+  }
+}
 /* Authors */
 
 .authors {
   li {
     margin-bottom: 12px;
+    text-transform: uppercase;
+    &:hover {
+      transform: scale(115%);
+      transition: all 1.5s;
+    }
+
+    a {
+      text-decoration: none;
+      &:hover {
+        color: $color-dark;
+      }
+    }
   }
 }
 
 /* Post */
 
+.posts {
+  position: relative;
+  min-height: 850px;
+}
+
 .post {
-  display: none;
+  display: block;
+  opacity: 0;
+  position: absolute;
+  z-index: 1;
+
   &.active {
-    display: block;
+    opacity: 1;
+    transition: all 1s;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    padding: 40px;
   }
 }
 
@@ -119,5 +164,30 @@ body {
   display: flex;
   p {
     margin: 0 10px 0 0;
+  }
+  .list-horizontal a:hover {
+    color: $color-dark;
+  }
+}
+
+/* media */
+
+@media (max-width: 881px) {
+  .wrapper {
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+  }
+  .sidebar,
+  .posts {
+    margin-bottom: 20px;
+    text-align: center;
+    margin-right: 0;
+  }
+  .post {
+    max-height: 400px;
+  }
+  .post-tags {
+    justify-content: center;
   }
 }

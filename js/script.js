@@ -81,12 +81,7 @@
 
       /* create link html code and save to variable */
 
-      const linkHTML =
-        '<li><a href="#' +
-        articleId +
-        '"><span>' +
-        articleTitle +
-        "</span></a></li>";
+      const linkHTML = `<li><a href="#${articleId}"><span>${articleTitle}</span></a></li>`;
       console.log(linkHTML);
 
       /* insert link html code to link list */
