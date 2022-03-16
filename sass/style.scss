@@ -94,7 +94,14 @@ body {
 .list-horizontal {
   li {
     display: inline-block;
-    text-decoration: underline dotted;
+    margin-right: 10px;
+
+    a {
+      text-decoration: underline dotted;
+      &:hover {
+        color: $color-dark;
+      }
+    }
   }
 }
 
@@ -164,9 +171,6 @@ body {
   display: flex;
   p {
     margin: 0 10px 0 0;
-  }
-  .list-horizontal a:hover {
-    color: $color-dark;
   }
 }
 
