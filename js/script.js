@@ -106,8 +106,9 @@ function generateTitleLinks(customSelector = '') {
 generateTitleLinks();
 
 function generateTags() {
-  /* [NEW] create a new variable allTags with an empty array */
-  let allTags = [];
+  /* [NEW] create a new variable allTags with an empty object */
+  let allTags = {};
+  console.log('allTags:', allTags);
   /* find all articles */
 
   const articles = document.querySelectorAll(optArticleSelector);
@@ -131,16 +132,16 @@ function generateTags() {
 
     /* split tags into array */
 
-    const finalTags = articleTags.split(' ');
-    console.log('final tags:' + finalTags);
+    const tags = articleTags.split(' ');
+    console.log('final tags:' + tags);
 
     /* START LOOP: for each tag */
 
-    for (let finalTag of finalTags) {
-      console.log(finalTag);
+    for (let tag of tags) {
+      console.log(tag);
 
       /* generate HTML of the link */
-      const linkHTML = `<li><a href="#tag-${finalTag}">${finalTag}</a></li>`;
+      const linkHTML = `<li><a href="#tag-${tag}">${tag}</a></li>`;
       console.log('linkHtml:' + linkHTML);
 
       /* add generated code to html variable */
@@ -148,9 +149,11 @@ function generateTags() {
       html = html + linkHTML;
 
       /* [NEW] check if this link is NOT already in allTags */
-      if (allTags.indexOf(linkHTML) == -1) {
+      if (!allTags[tag]) {
         /* [NEW] add generated code to allTags array */
-        allTags.push(linkHTML);
+        allTags[tag] = 1;
+      } else {
+        allTags[tag]++;
       }
       /* END LOOP: for each tag */
     }
@@ -166,7 +169,25 @@ function generateTags() {
   console.log('tagList:' + tagList);
 
   /* [NEW] add html from allTags to tagList */
-  tagList.innerHTML = allTags.join(' ');
+  // tagList.innerHTML = allTags.join(' ');
+  console.log('allTags:', allTags);
+
+  /* [NEW] create variable for all links HTML code */
+  let allTagsHTML = '';
+
+  /* [NEW] START LOOP: for each tag in allTags: */
+  for (let tag in allTags) {
+    /* [NEW] generate code of a link and add it to allTagsHTML */
+
+    const linkHTML = `<li><a href="#tag-${tag}">${tag}</a></li>`;
+    console.log('linkHtml:' + linkHTML);
+
+    allTagsHTML += linkHTML + ' (' + allTags[tag] + ') ';
+  }
+  /* [NEW] END LOOP: for each tag in allTags: */
+
+  /*[NEW] add HTML from allTagsHTML to tagList */
+  tagList.innerHTML = allTagsHTML;
 }
 generateTags();
 
@@ -331,8 +352,6 @@ function authorClickHandler(event) {
 
 function addClickListenersToAuthor() {
   /* find all links to tags */
-
-  let html = '';
 
   const authorLinks = document.querySelectorAll('.post-author a');
   console.log('authorLinks:' + authorLinks);
