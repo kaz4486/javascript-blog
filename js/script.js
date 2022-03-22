@@ -54,6 +54,7 @@ const optArticleAuthorSelector = '.post-author';
 const optTagsListSelector = '.tags.list';
 const optCloudClassCount = 4;
 const optCloudClassPrefix = 'tag-size-';
+const optAuthorsListSelector = '.authors.list';
 
 function generateTitleLinks(customSelector = '') {
   console.log('List is generated!');
@@ -307,6 +308,9 @@ function addClickListenersToTags() {
 addClickListenersToTags();
 
 function generateAuthors() {
+  /* [NEW] create a new variable allAuthors with an empty array */
+  let allAuthors = {};
+
   /* find all articles */
 
   const articles = document.querySelectorAll(optArticleSelector);
@@ -323,18 +327,56 @@ function generateAuthors() {
     /* make html variable with empty string */
 
     /* get author from data-author attribute */
-    const articleAuthor = article.getAttribute('data-author');
-    console.log('articleAuthor:' + articleAuthor);
+    const author = article.getAttribute('data-author');
+    console.log('articleAuthor:' + author);
 
     /* generate HTML of the link */
-    const linkHTML = `<a href="#author-${articleAuthor}">${articleAuthor}</a>`;
+    const linkHTML = `<a href="#author-${author}">${author}</a>`;
     console.log('linkHtml:' + linkHTML);
+
+    /* [NEW] check if this link is NOT already in allAuthors */
+    if (!allAuthors[author]) {
+      /* [NEW] add tag to allTags object */
+      allAuthors[author] = 1;
+    } else {
+      allAuthors[author]++;
+    }
 
     /* insert HTML links into the author wrapper */
     authorWrapper.innerHTML = linkHTML;
     console.log('autor dodany!');
   }
+
+  /* [NEW] find list of authors in right column */
+  const authorsList = document.querySelector(optAuthorsListSelector);
+  console.log('authorList:' + authorsList);
+
+  /* [NEW] add html from allTags to tagList */
+  // tagList.innerHTML = allTags.join(' ');
+  console.log('allAuthors:', allAuthors);
+
+  /*const tagsParams = calculateTagsParams(allTags);
+  console.log('tagsParams:', tagsParams); */
+
+  /* [NEW] create variable for all links HTML code */
+
+  let allAuthorsHTML = '';
+
+  /* [NEW] START LOOP: for each tag in allTags: */
+  for (let author in allAuthors) {
+    /* [NEW] generate code of a link and add it to allTagsHTML */
+
+    const linkHTML = `<li><a href="#author-${author}">${author}</a></li>`;
+    console.log('linkHtml:' + linkHTML);
+
+    allAuthorsHTML += linkHTML + ' (' + allAuthors[author] + ') ';
+  }
+  /* [NEW] END LOOP: for each tag in allTags: */
+
+  /*[NEW] add HTML from allTagsHTML to tagList */
+  authorsList.innerHTML = allAuthorsHTML;
 }
+
 generateAuthors();
 
 function authorClickHandler(event) {
@@ -386,8 +428,10 @@ function authorClickHandler(event) {
   for (let authorLink of authorLinks) {
     /* add class active */
     authorLink.classList.add('active');
-    /* END LOOP: for each found tag link */
+
+    /* END LOOP: for each found author link */
   }
+
   /* execute function "generateTitleLinks" with article selector as argument */
 
   generateTitleLinks('[data-author="' + author + '"]');
@@ -396,7 +440,7 @@ function authorClickHandler(event) {
 /* Click listener to tag */
 
 function addClickListenersToAuthor() {
-  /* find all links to tags */
+  /* find all links to author */
 
   const authorLinks = document.querySelectorAll('.post-author a');
   console.log('authorLinks:' + authorLinks);
@@ -405,6 +449,18 @@ function addClickListenersToAuthor() {
     console.log('authorLink:' + authorLink);
     /* add authorClickHandler as event listener for that link */
     authorLink.addEventListener('click', authorClickHandler);
+    /* END LOOP: for each link */
+  }
+
+  /* find all links to author */
+
+  const authorListLinks = document.querySelectorAll('.authors.list a');
+  console.log('authorListLinks:' + authorListLinks);
+  /* START LOOP: for each link */
+  for (let authorListLink of authorListLinks) {
+    console.log('authorListLink:' + authorListLink);
+    /* add authorClickHandler as event listener for that link */
+    authorListLink.addEventListener('click', authorClickHandler);
     /* END LOOP: for each link */
   }
 }
