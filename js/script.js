@@ -52,7 +52,7 @@ const optTitleListSelector = '.titles';
 const optArticleTagsSelector = '.post-tags .list';
 const optArticleAuthorSelector = '.post-author';
 const optTagsListSelector = '.tags.list';
-const optCloudClassCount = 5;
+const optCloudClassCount = 4;
 const optCloudClassPrefix = 'tag-size-';
 
 function generateTitleLinks(customSelector = '') {
@@ -221,7 +221,7 @@ function generateTags() {
     )}">${tag}</a></li>`;
     console.log('linkHtml:' + linkHTML);
 
-    allTagsHTML += linkHTML + ' (' + allTags[tag] + ') ';
+    allTagsHTML += linkHTML;
   }
   /* [NEW] END LOOP: for each tag in allTags: */
 

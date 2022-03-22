@@ -1,13 +1,13 @@
-@import url("https://fonts.googleapis.com/css?family=Oswald:400,600|Sacramento|Source+Sans+Pro:300&subset=latin-ext");
+@import url('https://fonts.googleapis.com/css?family=Oswald:400,600|Sacramento|Source+Sans+Pro:300&subset=latin-ext');
 
 /* Variables */
 
 $color-light: #eea47fff;
 $color-dark: #00539cff;
 
-$font-logo: "Raleway Dots", cursive;
-$font-header: "Playfair Display", Serif;
-$font-text: "Source Sans Pro", sans-serif;
+$font-logo: 'Raleway Dots', cursive;
+$font-header: 'Playfair Display', Serif;
+$font-text: 'Source Sans Pro', sans-serif;
 
 /* Global */
 
@@ -120,6 +120,30 @@ body {
     color: $color-dark;
   }
 }
+
+aside .tags {
+  text-decoration: none;
+  display: inline-flex;
+  list-style: none;
+  flex-wrap: wrap;
+  a {
+    text-decoration: none;
+    margin: 2px;
+  }
+}
+.tag-size-1 {
+  font-size: 100%;
+}
+.tag-size-2 {
+  font-size: 150%;
+}
+.tag-size-3 {
+  font-size: 200%;
+}
+.tag-size-4 {
+  font-size: 300%;
+}
+
 /* Authors */
 
 .authors {
